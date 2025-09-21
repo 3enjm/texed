@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0th3dhib6t0r"]
+
+[ext_resource type="Script" uid="uid://sr1yuy8qttfh" path="res://src/canvas.gd" id="1_m4lpw"]
+[ext_resource type="Texture2D" uid="uid://cdpm5rf3kxegy" path="res://assets/ui/Tiles/tile_0057.png" id="2_m6v3x"]
+[ext_resource type="TileSet" uid="uid://c70ci7ltqywbq" path="res://assets/canvas_sprite_edit_tileset.tres" id="3_m6v3x"]
+
+[node name="Canvas" type="Node2D"]
+script = ExtResource("1_m4lpw")
+
+[node name="Brush" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Brush"]
+texture_filter = 1
+texture = ExtResource("2_m6v3x")
+
+[node name="FGTileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = ExtResource("3_m6v3x")

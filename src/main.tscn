@@ -1,0 +1,255 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcj1uuj2oncrc"]
+
+[ext_resource type="Script" uid="uid://bfv05l7waqj0u" path="res://src/main.gd" id="1_5q4o7"]
+[ext_resource type="Shader" uid="uid://74cf5fmtyphe" path="res://src/grid.gdshader" id="1_eewff"]
+[ext_resource type="Theme" uid="uid://brso2fq238fop" path="res://assets/ui/quest_theme.tres" id="2_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://d0th3dhib6t0r" path="res://src/canvas.tscn" id="2_gh0ne"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gh0ne"]
+shader = ExtResource("1_eewff")
+shader_parameter/colour = Color(0.24477637, 0.2447764, 0.24477637, 1)
+shader_parameter/scale = 1.0
+shader_parameter/grid_intensity = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eewff"]
+shader = ExtResource("1_eewff")
+shader_parameter/colour = Color(1, 1, 1, 1)
+shader_parameter/scale = 1.0000000475
+shader_parameter/grid_intensity = 0.60000002524012
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eewff"]
+size = Vector2(512, 512)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3cfgd"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fyndt"]
+font_size = 32
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_kmhfv"]
+color = Color(1, 1, 1, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_5q4o7")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_3cfgd")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_3cfgd")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuButton" type="MenuButton" parent="Control/MarginContainer/VBoxContainer/MenuBar"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "File"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 10
+
+[node name="ItemList" type="ItemList" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+max_columns = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="TabBar" type="TabBar" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 0
+tab_count = 2
+tab_0/title = "Sprite"
+tab_1/title = "Room"
+
+[node name="SaveButton" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Save"
+
+[node name="Editor" type="PanelContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="CanvasViewport" type="SubViewport" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor/SubViewportContainer"]
+unique_name_in_owner = true
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor/SubViewportContainer/CanvasViewport"]
+material = SubResource("ShaderMaterial_gh0ne")
+
+[node name="Canvas" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor/SubViewportContainer/CanvasViewport/World" instance=ExtResource("2_gh0ne")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor/SubViewportContainer/CanvasViewport/World"]
+unique_name_in_owner = true
+limit_enabled = false
+
+[node name="GridTextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/Editor"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_eewff")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_eewff")
+stretch_mode = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+alignment = 1
+
+[node name="ToggleGridButton" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Grid"
+
+[node name="VBoxContainer2" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="StylePanel" type="Panel" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"Panel_B"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_3cfgd")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_3cfgd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_3cfgd")
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Style"
+label_settings = SubResource("LabelSettings_fyndt")
+
+[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_kmhfv")
+
+[node name="FGColourField" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FGColourLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/FGColourField"]
+layout_mode = 2
+text = "Colour"
+
+[node name="FGColorPickerButton" type="ColorPickerButton" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/FGColourField"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Colour"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_3cfgd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_3cfgd")
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "Data"
+label_settings = SubResource("LabelSettings_fyndt")
+
+[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_kmhfv")
+
+[node name="FGColourField" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="FGColourLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/FGColourField"]
+layout_mode = 2
+text = "Colour"
+
+[node name="FGColorPickerButton" type="ColorPickerButton" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/FGColourField"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Colour"
+
+[connection signal="tab_changed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer/TabBar" to="." method="_on_tab_bar_tab_changed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="toggled" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer2/ToggleGridButton" to="." method="_on_toggle_grid_button_toggled"]
+[connection signal="color_changed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer/FGColourField/FGColorPickerButton" to="." method="_on_fg_color_picker_button_color_changed"]
+[connection signal="color_changed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/StylePanel/MarginContainer/VBoxContainer2/VBoxContainer2/FGColourField/FGColorPickerButton" to="." method="_on_fg_color_picker_button_color_changed"]

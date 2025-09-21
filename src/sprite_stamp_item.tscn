@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://clahkxajnr4ud"]
+
+[sub_resource type="GDScript" id="GDScript_3kkko"]
+script/source = "class_name SpriteStampItem
+extends Control
+
+@export var sprite_data: SpriteData
+"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eyc0b"]
+size = Vector2(64, 64)
+
+[node name="SpriteStampItem" type="CenterContainer"]
+offset_right = 64.0
+offset_bottom = 64.0
+script = SubResource("GDScript_3kkko")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_eyc0b")
+expand_mode = 2
