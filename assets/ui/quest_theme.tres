@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://brso2fq238fop"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://brso2fq238fop"]
 
 [ext_resource type="FontFile" uid="uid://bnhacfw87ojme" path="res://assets/ui/fonts/NotJamBlackletter13/NotJamBlkltr16.ttf" id="1_aerlf"]
 [ext_resource type="Texture2D" uid="uid://7app416vh4jq" path="res://assets/ui/scalable screen/Scalable txt screen x2.png" id="2_aerlf"]
@@ -27,6 +27,15 @@ texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
 texture_margin_bottom = 16.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhe2n"]
+texture = ExtResource("2_aerlf")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
@@ -71,6 +80,8 @@ ColorPickerButton/styles/normal = SubResource("StyleBoxTexture_ygh47")
 Label/fonts/font = ExtResource("1_aerlf")
 Panel/styles/panel = SubResource("StyleBoxFlat_vhe2n")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_ro7rg")
+PanelContainer_A/base_type = &"PanelContainer"
+PanelContainer_A/styles/panel = SubResource("StyleBoxTexture_vhe2n")
 Panel_A/base_type = &"Panel"
 Panel_A/styles/panel = SubResource("StyleBoxTexture_aerlf")
 Panel_B/base_type = &"Panel"
