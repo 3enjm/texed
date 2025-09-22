@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcj1uuj2oncrc"]
+[gd_scene load_steps=14 format=3 uid="uid://bcj1uuj2oncrc"]
 
 [ext_resource type="Script" uid="uid://bfv05l7waqj0u" path="res://src/main.gd" id="1_5q4o7"]
 [ext_resource type="Shader" uid="uid://74cf5fmtyphe" path="res://src/grid.gdshader" id="1_eewff"]
@@ -8,6 +8,9 @@
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_rlaii"]
 color = Color(1, 1, 1, 1)
 vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cfgd"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_fyndt"]
 color = Color(1, 1, 1, 1)
@@ -62,6 +65,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_3cfgd")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/Control/MarginContainer"]
 layout_mode = 2
@@ -97,17 +104,47 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Exit"
 
-[node name="VBoxContainer" type="PanelContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3cfgd")
+
+[node name="NewAssetButton" type="Button" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "New Sprite"
+flat = true
+
+[node name="AssetExplorer" type="PanelContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_type_variation = &"PanelContainer_A"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer"]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/VBoxContainer/VBoxContainer"]
+[node name="AssetExplorerHeading" type="HBoxContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer/AssetExplorerHeading"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AssetExplorerHeader" type="Label" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer/AssetExplorerHeading"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sprites"
+
+[node name="HSeparator" type="HSeparator" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer/AssetExplorerHeading"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AssetList" type="ItemList" parent="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 1
 max_columns = 2
 
@@ -125,9 +162,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 current_tab = 0
-tab_count = 2
+tab_count = 3
 tab_0/title = "Sprite"
 tab_1/title = "Room"
+tab_2/title = "Layout"
 
 [node name="VSeparator" type="VSeparator" parent="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/HBoxContainer"]
 layout_mode = 2
@@ -173,6 +211,23 @@ layout_mode = 2
 mouse_filter = 2
 texture = SubResource("PlaceholderTexture2D_eewff")
 stretch_mode = 3
+
+[node name="InitPanel" type="Panel" parent="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/Editor"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/Editor/InitPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InitAssetButton" type="Button" parent="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/Editor/InitPanel/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Sprite"
 
 [node name="StylePanel" type="PanelContainer" parent="MainUI/Control/MarginContainer/HBoxContainer2"]
 layout_mode = 2
@@ -255,6 +310,7 @@ size_flags_horizontal = 3
 text = "Colour"
 
 [node name="StartWindow" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="StartWindow"]
 layout_mode = 3
@@ -272,6 +328,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="item_selected" from="MainUI/Control/MarginContainer/HBoxContainer2/VBoxContainer2/AssetExplorer/VBoxContainer/AssetList" to="." method="_on_asset_list_item_selected"]
 [connection signal="tab_changed" from="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/HBoxContainer/TabBar" to="." method="_on_tab_bar_tab_changed"]
 [connection signal="toggled" from="MainUI/Control/MarginContainer/HBoxContainer2/CenterContainer/VBoxContainer3/HBoxContainer/ToggleGridButton" to="." method="_on_toggle_grid_button_toggled"]
 [connection signal="color_changed" from="MainUI/Control/MarginContainer/HBoxContainer2/StylePanel/VBoxContainer2/VBoxContainer/FGColourField/FGColorPickerButton" to="." method="_on_fg_color_picker_button_color_changed"]
